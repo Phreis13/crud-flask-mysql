@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas de Carros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .car-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Vendas de Carros</h1>
+        <div class="row">
+            {% for carro in carros %}
+            <div class="col-md-4 mb-4">
+                <div class="card car-card bg-secondary text-light" onclick="comprarCarro(this)">
+                    <img src="{{ carro.imagem }}" class="card-img-top" alt="{{ carro.modelo }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ carro.modelo }}</h5>
+                        <p class="card-text">Preço: R$ {{ carro.preco }}</p>
+                        <button class="btn btn-success w-100">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function comprarCarro(card) {
+            // Adiciona animação de bounce
+            card.classList.add('bounce');
+            setTimeout(() => {
+                card.classList.remove('bounce');
+                alert('Carro adicionado ao carrinho!');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
